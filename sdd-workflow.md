@@ -59,21 +59,23 @@ graph TD
         B1 --> B2
       end
       S5.2["Step 5.2: Optional<br/>Visual Design"]
-      S5.3["Step 5.3: Technical Design Document (TDDoc)"]
+      S5.3["Step 5.3: Technical Design<br/>(Components & Transactions)"]
+      S5.4["Step 5.4: Domain Setup<br/>(Isolation & Context)"]
 
       S5.2 --> S5.3
       DP1 -->|"Option A:<br/>No Prototyping"| S5.2
       B2 --> S5.3
+      S5.3 --> S5.4
       S5.3 -->|"Self-reflection<br/>and spec lints"| S5.3
+      S5.4 -->|"Domain validation"| S5.4
     end
 
     subgraph "Step 6: Implementation"
-        S5.3 --> F6.1["Step 6.1: Implementation Planning"]
-        F6.1 -->|"One epic"| F6.2["Step 6.2: Implementation and Review"]
+        S5.4 --> F6.1["Step 6.1: Simple<br/>Checklist by Domain"]
+        F6.1 --> F6.2["Step 6.2: Code & Track<br/>Bugs/Changes"]
+        F6.2 --> F6.3["Step 6.3: Quick<br/>Testing & Fix"]
         F6.1 -->|"Self-reflection<br/>and spec lints"| F6.1
-        F6.2 --> F6.3["Step 6.3: Testing"]
         F6.3 -->|"Test/Bug reports"| F6.2
-        F6.2 -->|"Next epic"| F6.1
     end
     F6.3 -->|"Ready"| F7["Step 7: Phase Completion & Integration"]
     F6.3 -.->|"Update"| S5.3
@@ -254,7 +256,7 @@ _This phase focuses on creating the foundational infrastructure and environment 
 
 _Notes_:
 
-- all the artifacts in this Step 5 (Functional Design, Technical Design, UI Design) must be created on the firsts Phase and then updated by introduction of new phases
+- all the artifacts in this Step 5 (Functional Design, Technical Design, Domain Setup, UI Design) must be created on the firsts Phase and then updated by introduction of new phases
 - in the implementation process these artifacts are updated and refined (with specs linter, TBD) - to make sure the actual implementation matches the design
 
 ### Step 5.1: Functional Design
@@ -365,95 +367,163 @@ _Use when high-fidelity, pixel-perfect visuals are required before development. 
 
 ### Step 5.3: Technical Design
 
-_Translate the functional design (and optional visual design) into a detailed technical blueprint for implementation._
+_Translate the functional design (and optional visual design) into structured technical blueprints for implementation._
 
 **Activities:**
 
-- **Define/Refine component architecture** for the Phase.
-- **Design API endpoints** and data contracts (if applicable).
-- **Plan database schema modifications** and data migration.
-- **Identify key libraries** or dependencies.
-- **Outline the implementation strategy** and potential challenges.
+- **Create component architecture diagram** with Mermaid visualization
+- **Define component registry** with all components, handlers, and DTOs
+- **Map transaction flows** between components
+- **Validate component references** with AI review
 
-**Deliverable: Technical Design Document (TDDoc)**
-_A single, comprehensive document detailing the technical implementation plan. It should be a living document, updated as needed during development. It contains code snippets only if strictly necessary._
+**Deliverables:**
 
-- template: [templates/5.3_technical_design.md](templates/5.3_technical_design.md)
-- prompt: [prompts/5.3_technical_design.md](prompts/5.3_technical_design.md)
+**5.3.1: Component Diagram (`components.md`)**
+- _Format: Markdown with Mermaid diagrams and brief component descriptions_
+- _Content: Visual representation of system architecture across layers_
+
+**5.3.2: Component Registry (`components.yaml`)**
+- _Format: YAML registry of all components with structured metadata_
+- _Content: Complete inventory of components, handlers, DTOs, and their relationships_
+
+**5.3.3: Transaction Flows (`transactions.yaml`)**
+- _Format: YAML description of data flows and user journeys through the system_
+- _Content: Step-by-step transaction chains showing how components interact_
 
 _Notes:_
 
-- complex TDDoc must be run through the additional review (self-reflection and spec lints) with AI to ensure it is correct and complete. Prompt: [prompts/5.3_technical_design_review.md](prompts/5.3_technical_design_review.md)
-- after each modification of the TDDoc, running a spec linter is required to ensure the TDDoc internal consistency and with codebase - prompt: [prompts/5.3_technical_design_lint.md](prompts/5.3_technical_design_lint.md).
+- All three files replace the traditional Technical Design Document (TDDoc)
+- Component IDs follow strict format: `{domain}.{layer}.{number}.{name}`
+- YAML structure enables AI agents to parse and generate context automatically
+- Run technical design review with AI: [prompts/5.3_technical_design_review.md](prompts/5.3_technical_design_review.md)
+- Run spec linter after modifications: [prompts/5.3._technical_design_lint.md](prompts/5.3._technical_design_lint.md)
+
+### Step 5.4: Domain Setup
+
+_Set up isolated domain workspaces based on the Technical Design to enable AI agents to work efficiently within well-defined boundaries without cross-domain interference._
+
+**Activities:**
+
+- **Create domain file structure** with proper organization and naming conventions
+- **Generate simplified context.toml** for each domain with isolation configuration
+- **Copy and adapt Technical Design files** to domain folders (domain-filtered)
+- **Set up GRAPH_TAG system** for component tracking and discovery
+- **Configure 4 DTO structure** for frontend/backend communication
+- **Validate domain isolation** and cross-domain communication rules
+
+**Deliverables:**
+
+**5.4.1: Domain Workspaces**
+- _Format: Domain folder structure in `docs/domains/<domain_name>/`_
+- _Content: Isolated workspace for each domain with all necessary configuration_
+
+**5.4.2: Context.toml Configuration**
+- _Format: Simplified TOML configuration file with only 2 sections_
+- _Content: Domain name and allowed communication domains_
+
+**5.4.3: Domain-Filtered Technical Design**
+- _Format: Domain-specific versions of components.md, components.yaml, transactions.yaml_
+- _Content: Technical design filtered to include only domain-relevant components_
+
+**5.4.4: Implementation Templates**
+- _Format: Step 6 templates copied to each domain folder_
+- _Content: Domain-specific implementation checklists, bug lists, and change tracking_
+
+**Key Features:**
+- **AI Agent Context Management** - agents work only within their assigned domain
+- **GRAPH_TAG Integration** - components tagged for easy discovery and graph generation
+- **4 DTO Pattern** - camelCase (frontend) + snake_case (backend) for clean contracts
+- **Domain Isolation** - strict boundaries with controlled cross-domain communication
+- **File Naming Convention** - `{LAYER}{DOMAIN}_{COMPONENT}_{Name}` for instant identification
+
+_Notes:_
+
+- Each domain is completely isolated with its own simplified context.toml configuration
+- AI agents can only work within their assigned domain boundaries
+- GRAPH_TAG system enables automatic graph generation and component discovery
+- 4 DTO structure ensures clean contracts between frontend and backend
+- Domain setup must be validated before proceeding to implementation
+- Context.toml now has maximum simplicity: only [domain] and [communication] sections
 
 ## Step 6: Implementation
 
-### Step 6.1: Implementation Planning
+### Step 6.1: Simple Implementation Checklist
 
-_This phase is about creating a detailed execution plan based on the Technical Design Document._
+_This phase is about creating a simple, actionable task checklist organized by domains based on the Technical Design._
+
 **Activities:**
 
-- **Work Breakdown:** Decompose the feature into a hierarchy of smaller, manageable tasks - WBS (Work Breakdown Structure) in Steps and Tasks(checklist)
-- **Task Sequencing & Dependency Mapping:** Identify the logical order of tasks and how they connect.
-- **Milestones (optional):** Identify the milestones for the feature.
-- **Dependencies:** Identify the dependencies between the tasks (if any)
+- **Domain-Based Task Organization**: Group tasks by domain (auth, profile, billing, etc.)
+- **Simple Task Lists**: Create straightforward checklists without complex hierarchies
+- **Component-Driven Tasks**: Tasks aligned with components from Technical Design
+- **Quick Dependency Notes**: Simple blocking/unblocking relationships
 
 **Deliverables:**
 
-- **📋 Implementation Plan:** A hierarchical list of all tasks with with milestones and dependencies, with checklists for each task.
-  - template: [templates/6.1_implementation_plan.md](templates/6.1_implementation_plan.md)
+- **📋 Implementation Checklist**: Simple checklist organized by domains
+  - template: [templates/6.1_implementation_checklist.md](templates/6.1_implementation_checklist.md)
   - prompt: [prompts/6.1_implementation_plan.md](prompts/6.1_implementation_plan.md)
-- **Gantt Chart (optional):** A visual representation of the tasks and their dependencies (mermaid) - after the Implementation Plan is created and approved
 
 _Notes:_
 
-- the Implementation Plan must be created by the top-performing AI coding agent (Claude Opus, etc )
-- complex Implementation Plan must be run through the additional review (self-reflection and spec lints) with AI to ensure it is correct and complete. Prompt: [prompts/6.1_implementation_plan_review-prompt.md](prompts/6.1_implementation_plan_review-prompt.md)
+- Focus on simplicity and actionability
+- No complex WBS hierarchies or Gantt charts
+- Tasks directly reference components from Technical Design
+- Quick progress tracking with checkboxes
+- Each domain works in isolation using its simplified context.toml
 
-### Step 6.2: Implementation and Review
+### Step 6.2: Code Implementation & Bug Tracking
 
-_This phase is about executing the plan by steering the AI coding agent._
-**Activities:**
-
-- **Code Development:** AI coding agent implements the tasks in the `Implementation Plan` based on the task list.
-- **Progress Tracking:** Regular check-ins to monitor the AI coding agent progress. Marking tasks as completed, writing the implementation report.
-- **Testing plan development:** Create a testing plan for the feature based on what was implemented.
-- **Code review (optional):** Code review of the AI coding agent code by another coding agent.
-
-**Deliverables:**
-
-- **Working Code** and logs of the AI coding agent
-- **Implementation Report**
-  - template: [prompts/6.2_implementation_report.md](prompts/6.2_implementation_report.md)
-- **Testing Plan:** Test plan for the feature based on what was implemented.
-  - template: [prompts/6.2_testing_plan.md](prompts/6.2_testing_plan.md)
-  - prompt: [prompts/6.2_testing_plan.md](prompts/6.2_testing_plan.md)
-- **Code Review Report (optional):**
-- template: [prompts/6.2_code_review_report.md](prompts/6.2_code_review_report.md)
-- prompt: [prompts/6.2_code_review_report.md](prompts/6.2_code_review_report.md)
-
-### Step 6.3: Testing
+_This phase is about writing code and tracking issues without heavy documentation._
 
 **Activities:**
 
-- **Testing:** Implementation and execution of unit/integration/e2e/regression tests as defined in the test plan.
-- **Progress Tracking:** Regular check-ins to monitor progress against the schedule. Marking tasks as completed.
-- **Spec Lint:** Updating the Technical Specification Document and Functionality Specifications when needed. Prompt: [prompts/5.3_technical_design_lint.md](prompts/5.3_technical_design_lint.md)
+- **Code Development**: AI coding agent implements tasks from the checklist within domain boundaries
+- **Simple Bug Tracking**: Log bugs as they're discovered in domain-specific bug lists
+- **Change Tracking**: Record significant changes made during development
+- **Basic Progress Updates**: Mark completed tasks in checklist
 
 **Deliverables:**
 
-- **Testing Report:**
-  - template: [prompts/6.3_testing_report.md](prompts/6.3_testing_report.md)
-- **Bug List (optional):** List of bugs found during the testing.
-  - template: [prompts/6.3_bug_list.md](prompts/6.3_bug_list.md)
-- **Updates List (optional):** List of updates made during the testing (not bugs but small changes to the ui, etc)
-  - template: [prompts/6.3_updates_list.md](prompts/6.3_updates_list.md)
-- **Updated Project Documentation:** TDDoc, FDD, UI Design
+- **Working Code**: Implemented features based on Technical Design within domain isolation
+- **🐛 Bug List**: Simple list of bugs found and fixed (domain-specific)
+  - template: [templates/6.2_bug_list.md](templates/6.2_bug_list.md)
+- **🔄 Changes List**: Simple list of changes made during development (domain-specific)
+  - template: [templates/6.3_changes_list.md](templates/6.3_changes_list.md)
 
 _Notes:_
 
-- **small bugs** are fixed during the testing,
-- **big bugs** are described in the testing report and fixed separately running the command fix-bug. Template: [prompts/6.3_fix_bug.md](prompts/6.3_fix_bug.md) or fix-test, template: [prompts/6.3_fix_test.md](prompts/6.3_fix_test.md)
+- No detailed implementation reports
+- Focus on working code and issue tracking
+- Simple, actionable bug and change lists
+- Quick documentation of what was actually built
+- All work respects domain boundaries defined in simplified context.toml
+
+### Step 6.3: Quick Testing & Fixes
+
+_This phase is about testing functionality and fixing issues without extensive reporting._
+
+**Activities:**
+
+- **Basic Testing**: Unit, integration, and manual testing of implemented features within domain
+- **Bug Fixing**: Fix bugs found during testing
+- **Small Adjustments**: Make minor changes and improvements
+- **Technical Design Updates**: Update Technical Design files if needed
+
+**Deliverables:**
+
+- **✅ Tested Code**: Working, tested implementation within domain boundaries
+- **🐛 Updated Bug List**: Final status of bugs (fixed/remaining)
+- **🔄 Updated Changes List**: All changes made during testing phase
+- **📄 Updated Technical Design**: If implementation required design changes
+
+_Notes:_
+
+- No comprehensive testing reports
+- Focus on working functionality
+- Simple lists track bugs and changes
+- Technical Design files updated to reflect actual implementation
+- All testing respects domain isolation and communication rules
 
 ## Step 7: Phase Completion & Integration
 
@@ -469,7 +539,8 @@ _Notes:_
 - **Updated Project Documentation** if needed:
   - system architecture
   - roadmap
-  - design documents (FDD, TDDoc, UI Design)
+  - design documents (FDD, Technical Design, UI Design)
+  - domain configurations
 - **User Documentation**: tutorials, guides, screencasts, etc.
 - **Phase Acceptance Report (optional)**
   - _Content: All acceptance criteria met, stakeholder sign-off_

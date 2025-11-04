@@ -1,47 +1,77 @@
 # AI Coding Agent Prompts
 
-This folder contains prompts for AI coding agents. Each prompt is a separate file.
+This folder contains prompts for AI coding agents. Each prompt is a separate file designed for specific development tasks.
 
-## Usage
+## Quick Start
 
-**Option 1: As prompts in LLM chats (ChatGPT, Claude, etc):**
-- copy the prompt to the LLM chat
-- attach the proper template file from the `templates` folder
-- attach any other files that are required by the prompt
+**Option 1: Direct Prompt Usage**
+- Copy prompt content to your LLM chat
+- Attach template files from `templates/`
+- Attach required documents
 
-**Option 2: As custom commands in Claude Code (or similar):**
-- create a symlink to the prompt file to the '.claude/commands' folder in your project
-symlink creation commands:
+**Option 2: Claude Code Commands**
 ```bash
 cd .claude/commands
-ln -s /path/to/prompt_template.md your_command_name.md
+ln -s /path/to/sdd-flow/prompts/1.1_initial_hypothesis.md hypothesis.md
+ln -s /path/to/sdd-flow/prompts/2_system_architecture.md architecture.md
 ```
 
-Actual ln commands:
+**Option 3: Custom Integration**
+- Adapt prompts for your specific AI tool
+- Modify technology stack in `<TECH_STACK_PREFERENCES>` sections
+- Adjust templates to match your project structure
 
-```bash
-# Create links for all prompt files
-# replace `<your_methodology_folder>/` to this methodology project folder and `<your_working_project_folder>` to your working project folder.
-cd <your_working_project_folder>
+## Core Prompts
 
-ln -s <your_methodology_folder>/prompts/1.1_initial_hypothesis.md .claude/commands/hypothesis.md \
-ln -s <your_methodology_folder>/prompts/1.3_market_research_report.md .claude/commands/market-research.md \
-ln -s <your_methodology_folder>/prompts/2_system_architecture.md .claude/commands/architecture.md \
-ln -s <your_methodology_folder>/prompts/2_system_architecture_review.md .claude/commands/architecture-review.md \
-ln -s <your_methodology_folder>/prompts/3_feature_roadmap.md .claude/commands/roadmap.md \
-ln -s <your_methodology_folder>/prompts/5.1_functional_design.md .claude/commands/functional-design.md \
-ln -s <your_methodology_folder>/prompts/5.3._technical_design_lint.md .claude/commands/TDDoc-lint.md \
-ln -s <your_methodology_folder>/prompts/5.3_technical_design.md .claude/commands/TDDoc.md \
-ln -s <your_methodology_folder>/prompts/5.3_technical_design_review.md .claude/commands/TDDoc-review.md \
-ln -s <your_methodology_folder>/prompts/6.1_implementation_plan.md .claude/commands/plan.md \
-ln -s <your_methodology_folder>/prompts/6.1_implementation_plan_review.md .claude/commands/plan-review.md \
-ln -s <your_methodology_folder>/prompts/6.2_code_implementation.md .claude/commands/do.md \
-ln -s <your_methodology_folder>/prompts/6.2_code_review.md .claude/commands/code-review.md \
-ln -s <your_methodology_folder>/prompts/6.3_fix_bug.md .claude/commands/fix-bug.md \
-ln -s <your_methodology_folder>/prompts/6.3_fix_test.md .claude/commands/fix-test.md \
-ln -s <your_methodology_folder>/prompts/6.3_testing.md .claude/commands/test.md 
+### 🎯 Discovery & Concept
+- `1.1_initial_hypothesis.md` - Initial idea formation
+- `1.3_market_research_report.md` - Market analysis
 
-```
+### 🏗️ System Design
+- `2_system_architecture.md` - Technology stack and architecture
 
-**Option 3: As a subagent in Claude Code (or similar):**
-- create a symlink to the prompt file to the '.claude/agents' folder in your project (similair to the commands, see above)
+### 📋 Planning
+- `3_feature_roadmap.md` - Feature breakdown and prioritization
+
+### 🎨 Design
+- `5.1_functional_design.md` - User stories and workflows
+- `5.3_technical_design.md` - Component architecture (NEW 3-file approach)
+- `5.3_technical_design_review.md` - Design validation
+- `5.3._technical_design_lint.md` - Consistency checking
+- `5.4_domain_setup.md` - Domain isolation setup (NEW)
+
+### 🛠️ Implementation
+- `6.1_implementation_plan.md` - Domain-based task planning
+- `6.2_code_implementation.md` - Code execution
+- `6.2_code_review.md` - Code quality checks
+
+### 🧪 Testing
+- `6.3_testing.md` - Test execution and validation
+- `6.3_fix_bug.md` - Bug resolution
+- `6.3_fix_test.md` - Test fixing
+
+## Technology Customization
+
+Each prompt allows technology stack customization. Key areas:
+- **Frontend**: React/Next.js/TypeScript/etc
+- **Backend**: FastAPI/Django/etc
+- **Database**: PostgreSQL/MongoDB/etc
+- **Tools**: npm/bun, pytest/jest, etc
+
+## Templates
+
+Corresponding templates in `templates/` folder:
+- `1.1_initial_hypothesis.md`
+- `2_system_architecture.md`
+- `5.1_functional_design.md`
+- `5.3_components.md`, `5.3_components.yaml`, `5.3_transactions.yaml`
+- `5.4_domain_setup.md`
+- `6.1_implementation_checklist.md`
+- `6.2_bug_list.md`, `6.3_changes_list.md`
+
+## Usage Tips
+
+1. **Start with Step 1.1** for any new project
+2. **Customize technology stack** in Step 2 based on your needs
+3. **Use Step 5.4** for domain-based development
+4. **Validate regularly** with lint and review prompts

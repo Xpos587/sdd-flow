@@ -6,7 +6,6 @@ This document defines the graph database model (ontology) for representing syste
 
 The documents that store the graph model are:
 
-- docs/domains/<domain>/graph.cypher - the graph model for the current domain
 - docs/domains/<domain>/components.md - the list of components for the current domain and their features/responsibilities
 - docs/domains/<domain>/components.yaml - the registry of components with handlers for the current domain
 - docs/domains/<domain>/transactions.yaml - the registry of transactions for the current domain

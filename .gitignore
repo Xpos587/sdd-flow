@@ -123,7 +123,6 @@ $RECYCLE.BIN/
 .obsidian/workspace.json
 
 # Claude workspace
-.claude
 .mcp.json
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,dotenv,react,venv,visualstudiocode

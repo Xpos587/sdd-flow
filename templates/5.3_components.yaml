@@ -1,0 +1,100 @@
+# Component Registry
+# Domain: {{DOMAIN_NAME}}
+# Format: {domain}.{layer}.{number}.{name}
+
+domain: {{DOMAIN_NAME}}
+description: "{{DOMAIN_DESCRIPTION}}"
+
+components:
+  frontend:
+    # Example: F.1.1.LoginForm
+    F.1.1.ComponentName:
+      file: "frontend/domains/{{DOMAIN_NAME}}/components/ComponentName.tsx"
+      description: "{{COMPONENT_DESCRIPTION}}"
+      handlers:
+        - H-F.1.1.HandlerName
+      dto_used:
+        - DTOName
+      dependencies:
+        - "react"
+        - "@/components/ui/Button"
+        - "@/hooks/useAuth"
+
+  backend:
+    # Example: B.1.1.AuthRouter
+    B.1.1.ComponentName:
+      file: "backend/domains/{{DOMAIN_NAME}}/ComponentName.py"
+      description: "{{COMPONENT_DESCRIPTION}}"
+      handlers:
+        - H-B.1.1.HandlerName
+      dto_used:
+        - DTOName
+      dependencies:
+        - "fastapi"
+        - "sqlalchemy"
+        - "pydantic"
+
+  shared:
+    # Example: S.1.1.UserDTO
+    S.1.1.ComponentName:
+      file: "shared/dto/ComponentName.ts"
+      description: "{{COMPONENT_DESCRIPTION}}"
+      handlers: []
+      dto_used: []
+      dependencies:
+        - "zod"
+        - "typescript"
+
+handlers:
+  # Frontend handlers
+  H-F.1.1.HandlerName:
+    file: "frontend/domains/{{DOMAIN_NAME}}/handlers/HandlerName.ts"
+    description: "{{HANDLER_DESCRIPTION}}"
+    input_dto: InputDTOName
+    output_dto: OutputDTOName
+
+  # Backend handlers
+  H-B.1.1.HandlerName:
+    file: "backend/domains/{{DOMAIN_NAME}}/handlers/HandlerName.py"
+    description: "{{HANDLER_DESCRIPTION}}"
+    input_dto: InputDTOName
+    output_dto: OutputDTOName
+
+dto:
+  DTOName:
+    file: "shared/dto/DTOName.ts"
+    description: "{{DTO_DESCRIPTION}}"
+    fields:
+      - name: "field1"
+        type: "string"
+        required: true
+      - name: "field2"
+        type: "number"
+        required: false
+    validation_rules:
+      - "field1 must be email format"
+      - "field2 must be positive"
+
+# Cross-component relationships
+relationships:
+  - from: "F.1.1.ComponentName"
+    to: "B.1.1.ComponentName"
+    type: "api_call"
+    description: "Frontend component calls backend API"
+
+  - from: "B.1.1.ComponentName"
+    to: "S.1.1.ComponentName"
+    type: "uses"
+    description: "Backend component uses shared DTO"
+
+# Validation rules
+validation:
+  component_id_format: "{domain}.{layer}.{number}.{name}"
+  required_fields:
+    components: ["file", "description"]
+    handlers: ["file", "description", "input_dto", "output_dto"]
+    dto: ["file", "description", "fields"]
+
+---
+# Generated for SDD Flow Technical Design Step 5.3
+# Validate component references through AI review to ensure consistency

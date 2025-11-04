@@ -1,0 +1,146 @@
+#!/bin/bash
+
+# KISS Script for Automatic Prompt Linking
+# Usage: ./tools/setup-prompts <project-path> [commands-dir]
+
+set -e
+
+# Colors for output
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+error() {
+	echo -e "${RED}ERROR: $1${NC}" >&2
+	exit 1
+}
+
+success() {
+	echo -e "${GREEN}✓ $1${NC}"
+}
+
+info() {
+	echo -e "${BLUE}ℹ $1${NC}"
+}
+
+# Check arguments
+if [ $# -lt 1 ]; then
+	error "Usage: $0 <project-path> [commands-dir]"
+	echo "Example: $0 /path/to/my-project .claude/commands"
+	exit 1
+fi
+
+PROJECT_PATH="$1"
+COMMANDS_DIR="${2:-.claude/commands}"
+
+# Validate project path
+if [ ! -d "$PROJECT_PATH" ]; then
+	error "Project path not found: $PROJECT_PATH"
+fi
+
+# Get SDD Flow path (script location)
+SDD_FLOW_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Create commands directory if it doesn't exist
+mkdir -p "$PROJECT_PATH/$COMMANDS_DIR"
+
+# Define prompt mappings (short_name -> filename)
+declare -A PROMPTS=(
+	["hypothesis"]="1.1_initial_hypothesis.md"
+	["market-research"]="1.3_market_research_report.md"
+	["architecture"]="2_system_architecture.md"
+	["architecture-review"]="2_system_architecture_review.md"
+	["roadmap"]="3_feature_roadmap.md"
+	["functional-design"]="5.1_functional_design.md"
+	["tech-design"]="5.3_technical_design.md"
+	["tech-review"]="5.3_technical_design_review.md"
+	["tech-lint"]="5.3._technical_design_lint.md"
+	["domain-setup"]="5.4_domain_setup.md"
+	["plan"]="6.1_implementation_plan.md"
+	["plan-review"]="6.1_implementation_plan_review.md"
+	["do"]="6.2_code_implementation.md"
+	["code-review"]="6.2_code_review.md"
+	["test"]="6.3_testing.md"
+	["fix-bug"]="6.3_fix_bug.md"
+	["fix-test"]="6.3_fix_test.md"
+)
+
+# Create symbolic links
+info "Creating prompt links in $PROJECT_PATH/$COMMANDS_DIR"
+
+for short_name in "${!PROMPTS[@]}"; do
+	filename="${PROMPTS[$short_name]}"
+	source_file="$SDD_FLOW_PATH/prompts/$filename"
+	target_link="$PROJECT_PATH/$COMMANDS_DIR/$short_name.md"
+
+	if [ ! -f "$source_file" ]; then
+		error "Prompt file not found: $filename"
+	fi
+
+	# Remove existing link if it exists
+	if [ -L "$target_link" ] || [ -f "$target_link" ]; then
+		rm "$target_link"
+	fi
+
+	# Create new symbolic link
+	ln -s "$source_file" "$target_link"
+	success "Linked: $short_name.md → $filename"
+done
+
+# Create .claude directory if using default location
+if [ "$COMMANDS_DIR" = ".claude/commands" ]; then
+	mkdir -p "$PROJECT_PATH/.claude"
+	success "Created .claude directory"
+fi
+
+# Create simple usage guide
+cat >"$PROJECT_PATH/$COMMANDS_DIR/README.md" <<'EOF'
+# Available SDD Flow Commands
+
+These commands provide access to SDD Flow prompts for AI-assisted development.
+
+## Core Workflow
+- `hypothesis` - Initial hypothesis formation
+- `market-research` - Market analysis
+- `architecture` - System architecture design
+- `roadmap` - Feature planning
+- `functional-design` - User stories
+- `tech-design` - Technical design (3-file approach)
+- `domain-setup` - Domain isolation setup
+- `plan` - Implementation planning
+- `do` - Code implementation
+- `test` - Testing execution
+
+## Review & Quality
+- `tech-review` - Design validation
+- `tech-lint` - Consistency checking
+- `plan-review` - Plan validation
+- `code-review` - Code quality
+- `fix-bug` - Bug resolution
+- `fix-test` - Test fixing
+
+## Usage with Claude Code
+Simply type the command name (without extension) in Claude Code:
+> architecture
+> domain-setup
+> do
+
+## Technology Customization
+Each prompt accepts technology stack customization. Specify your preferences:
+- Package managers: npm, bun, pnpm, yarn
+- Runtimes: Node.js, Bun, Python
+- Frameworks: React, Next.js, FastAPI, Django
+- Databases: PostgreSQL, MongoDB, SQLite
+EOF
+
+success "Usage guide created: $PROJECT_PATH/$COMMANDS_DIR/README.md"
+
+# Count links created
+link_count=${#PROMPTS[@]}
+success "Successfully linked $link_count prompts"
+
+echo -e "${GREEN}
+${BLUE}🚀 SDD Flow prompts ready!${NC}
+${YELLOW}Use commands like 'architecture' or 'domain-setup' in your AI tool${NC}"

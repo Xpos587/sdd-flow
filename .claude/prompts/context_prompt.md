@@ -1,0 +1,16 @@
+If no modifications requested -- Please analyze the code provided above and suggest improvements, optimizations, or fixes.
+
+When you make changes to the code, please format your response as a single Markdown file containing multiple created/modified files.
+
+For each file provide:
+
+1. a summary of your changes and the reasoning behind them.
+2. the exact new code in markdown code block with the file path.
+
+Make sure to include the file name and it's full content, like this:
+
+```javascript src/utils.js
+function improvedFunction() {
+  // Your improved code here
+}
+```
