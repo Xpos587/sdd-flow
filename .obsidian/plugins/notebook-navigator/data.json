@@ -97,11 +97,7 @@
   "previewProperties": [],
   "previewRows": 2,
   "showFeatureImage": true,
-  "featureImageProperties": [
-    "thumbnail",
-    "featureResized",
-    "feature"
-  ],
+  "featureImageProperties": ["thumbnail", "featureResized", "feature"],
   "forceSquareFeatureImage": true,
   "useEmbeddedImageFallback": true,
   "externalIconProviders": {},
@@ -178,9 +174,7 @@
       },
       {
         "key": "Tab",
-        "modifiers": [
-          "Shift"
-        ]
+        "modifiers": ["Shift"]
       }
     ],
     "list:focus-editor": [
@@ -196,41 +190,31 @@
     "list:select-all": [
       {
         "key": "A",
-        "modifiers": [
-          "Mod"
-        ]
+        "modifiers": ["Mod"]
       }
     ],
     "list:extend-selection-up": [
       {
         "key": "ArrowUp",
-        "modifiers": [
-          "Shift"
-        ]
+        "modifiers": ["Shift"]
       }
     ],
     "list:extend-selection-down": [
       {
         "key": "ArrowDown",
-        "modifiers": [
-          "Shift"
-        ]
+        "modifiers": ["Shift"]
       }
     ],
     "list:range-to-start": [
       {
         "key": "Home",
-        "modifiers": [
-          "Shift"
-        ]
+        "modifiers": ["Shift"]
       }
     ],
     "list:range-to-end": [
       {
         "key": "End",
-        "modifiers": [
-          "Shift"
-        ]
+        "modifiers": ["Shift"]
       }
     ],
     "search:focus-list": [
@@ -246,9 +230,7 @@
     "search:focus-navigation": [
       {
         "key": "Tab",
-        "modifiers": [
-          "Shift"
-        ]
+        "modifiers": ["Shift"]
       }
     ],
     "search:close": [

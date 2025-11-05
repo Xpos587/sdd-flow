@@ -2,7 +2,5 @@
   "accentColor": "#f5915c",
   "showViewHeader": true,
   "showRibbon": false,
-  "enabledCssSnippets": [
-    "mermaid-theme"
-  ]
+  "enabledCssSnippets": ["mermaid-theme"]
 }

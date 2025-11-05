@@ -1,0 +1,55 @@
+#!/bin/bash
+
+# project-tree - Project Structure Tree Generator
+# Generates a comprehensive directory tree visualization using eza and AI analysis
+
+# Get script directory (works even when called from other directories)
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
+
+# Default values
+TREE_DEPTH=3
+PROMPT_FILE="$SCRIPT_DIR/../.claude/prompts/project_structure_tree.md"
+
+# Parse arguments
+while [[ "$#" -gt 0 ]]; do
+	case $1 in
+	--depth=*)
+		TREE_DEPTH="${1#*=}"
+		shift
+		;;
+	--prompt=*)
+		PROMPT_FILE="${1#*=}"
+		shift
+		;;
+	--help | -h)
+		echo "Usage: project-tree [options]"
+		echo ""
+		echo "Options:"
+		echo "  --depth=<num>       Directory tree depth level (default: 3)"
+		echo "  --prompt=<file>     Use custom prompt from file (default: .claude/prompts/project_structure_tree.md)"
+		echo "  --help, -h          Show this help message"
+		exit 0
+		;;
+	*)
+		echo "Unknown parameter: $1" >&2
+		exit 1
+		;;
+	esac
+done
+
+# Check if prompt file exists
+if [ ! -f "$PROMPT_FILE" ]; then
+	echo "Error: Prompt file not found: $PROMPT_FILE" >&2
+	exit 1
+fi
+
+# Generate tree structure and send to Claude
+{
+	cat "$PROMPT_FILE"
+	echo ""
+	echo "## Directory Tree"
+	echo ""
+	eza -T --group-directories-first -a --level="$TREE_DEPTH" --git-ignore
+} | claude -p
+
+exit 0

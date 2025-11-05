@@ -9,19 +9,18 @@ This folder contains shared preferences and helper prompts for AI coding agents.
 - `development-standards.md` - Development standards and conventions (PEP 8, TypeScript, etc.)
 - `testing-preferences.md` - Testing frameworks and testing conventions
 - `running-services.md` - Service status checking
-- `current-task-context.md` - Phase and step extraction for agent context
+- `graph-schema.md` - GRAPH-TAG system documentation and schema
 
 ### Usage
 
 Copy or create symlinks to the common files in your working project folder.
 
 ```bash
-cd <your_project_folder>/docs/common
-
-ln -s /mnt/f/AICoding/common/current-task-context.md \
-ln -s /mnt/f/AICoding/common/running-services.md \
-ln -s /mnt/f/AICoding/common/testing-preferences.md \
-ln -s /mnt/f/AICoding/common/development-standards.md
+export SYMLINKS_TARGET_DIR="~/your-project/docs/common"
+ln -s ./common/running-services.md $SYMLINKS_TARGET_DIR/
+ln -s ./common/testing-preferences.md $SYMLINKS_TARGET_DIR/
+ln -s ./common/development-standards.md $SYMLINKS_TARGET_DIR/
+ln -s ./common/graph-schema.md $SYMLINKS_TARGET_DIR/
 ```
 
 ## Usage Tips
@@ -31,10 +30,6 @@ ln -s /mnt/f/AICoding/common/development-standards.md
 3. **Project Consistency** - Ensure all developers use the same standards
 
 ## File Descriptions
-
-### current-task-context.md
-
-Helper prompt for extracting current task context from `task_context.ini` file, enabling AI agents to understand which phase and step they're currently working on.
 
 ### running-services.md
 
@@ -47,3 +42,7 @@ Preferences and conventions for the testing process, including testing tools, fr
 ### development-standards.md
 
 Development standards and conventions for the project, including coding style, naming conventions, and quality standards.
+
+### graph-schema.md
+
+GRAPH-TAG system documentation and schema for component tracking and dependency mapping in Domain-Driven Design architecture.

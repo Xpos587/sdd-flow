@@ -1,16 +1,15 @@
 # Transaction Flows
-# Domain: {{DOMAIN_NAME}}
 
-domain: {{DOMAIN_NAME}}
-description: "{{DOMAIN_DESCRIPTION}}"
+domain: '{{DOMAIN_NAME}}'
+description: '{{DOMAIN_DESCRIPTION}}'
 
 transactions:
   # Example: User Registration Flow
   transaction_name:
-    description: "{{TRANSACTION_DESCRIPTION}}"
-    trigger: "{{USER_ACTION_OR_SYSTEM_EVENT}}"
-    priority: "high|medium|low"
-    estimated_time: "{{ESTIMATED_TIME}}"
+    description: '{{TRANSACTION_DESCRIPTION}}'
+    trigger: '{{USER_ACTION_OR_SYSTEM_EVENT}}'
+    priority: 'high|medium|low'
+    estimated_time: '{{ESTIMATED_TIME}}'
 
     flow:
       - step: 1
@@ -18,51 +17,51 @@ transactions:
         handler: H-F.1.1.HandlerName
         input_dto: UserInputData
         output_dto: ProcessedRequest
-        description: "{{STEP_DESCRIPTION}}"
+        description: '{{STEP_DESCRIPTION}}'
 
       - step: 2
         component: B.1.1.ComponentName
         handler: H-B.1.1.HandlerName
         input_dto: ProcessedRequest
         output_dto: ValidationResult
-        description: "{{STEP_DESCRIPTION}}"
+        description: '{{STEP_DESCRIPTION}}'
 
       - step: 3
         component: B.1.2.ComponentName
         handler: H-B.1.2.HandlerName
         input_dto: ValidationResult
         output_dto: SavedData
-        description: "{{STEP_DESCRIPTION}}"
+        description: '{{STEP_DESCRIPTION}}'
 
       - step: 4
         component: F.1.2.ComponentName
         handler: H-F.1.2.HandlerName
         input_dto: SavedData
         output_dto: UserResponse
-        description: "{{STEP_DESCRIPTION}}"
+        description: '{{STEP_DESCRIPTION}}'
 
     error_handling:
       - step: 2
-        error_type: "ValidationError"
+        error_type: 'ValidationError'
         fallback_component: F.1.3.ErrorComponent
-        action: "Display error message to user"
+        action: 'Display error message to user'
 
       - step: 3
-        error_type: "DatabaseError"
+        error_type: 'DatabaseError'
         fallback_component: F.1.3.ErrorComponent
-        action: "Show generic error, retry option"
+        action: 'Show generic error, retry option'
 
     success_criteria:
-      - "All steps complete successfully"
-      - "User receives confirmation"
-      - "Data is persisted correctly"
+      - 'All steps complete successfully'
+      - 'User receives confirmation'
+      - 'Data is persisted correctly'
 
   # Example: Data Sync Flow
   another_transaction:
-    description: "{{TRANSACTION_DESCRIPTION}}"
-    trigger: "{{USER_ACTION_OR_SYSTEM_EVENT}}"
-    priority: "high|medium|low"
-    estimated_time: "{{ESTIMATED_TIME}}"
+    description: '{{TRANSACTION_DESCRIPTION}}'
+    trigger: '{{USER_ACTION_OR_SYSTEM_EVENT}}'
+    priority: 'high|medium|low'
+    estimated_time: '{{ESTIMATED_TIME}}'
 
     flow:
       - step: 1
@@ -70,19 +69,19 @@ transactions:
         handler: H-S.1.1.HandlerName
         input_dto: SyncRequest
         output_dto: ValidatedSyncData
-        description: "{{STEP_DESCRIPTION}}"
+        description: '{{STEP_DESCRIPTION}}'
 
 # Cross-domain transactions (if applicable)
 cross_domain_transactions:
   transaction_name:
-    description: "{{CROSS_DOMAIN_DESCRIPTION}}"
+    description: '{{CROSS_DOMAIN_DESCRIPTION}}'
     domains:
-      - "{{DOMAIN_NAME_1}}"
-      - "{{DOMAIN_NAME_2}}"
+      - '{{DOMAIN_NAME_1}}'
+      - '{{DOMAIN_NAME_2}}'
 
     flow:
       - step: 1
-        domain: "{{DOMAIN_NAME_1}}"
+        domain: '{{DOMAIN_NAME_1}}'
         component: ComponentName
         handler: HandlerName
         # ... other fields
@@ -90,9 +89,9 @@ cross_domain_transactions:
 # Background/Cron transactions
 background_transactions:
   cleanup_transaction:
-    description: "{{BACKGROUND_DESCRIPTION}}"
-    schedule: "0 2 * * *"  # Cron expression
-    trigger: "Scheduled job"
+    description: '{{BACKGROUND_DESCRIPTION}}'
+    schedule: '0 2 * * *' # Cron expression
+    trigger: 'Scheduled job'
 
     flow:
       - step: 1
@@ -100,21 +99,17 @@ background_transactions:
         handler: H-B.1.5.HandlerName
         input_dto: CleanupRequest
         output_dto: CleanupResult
-        description: "{{STEP_DESCRIPTION}}"
+        description: '{{STEP_DESCRIPTION}}'
 
 # Transaction metrics and monitoring
 monitoring:
   transaction_name:
     metrics:
-      - "completion_rate"
-      - "average_duration"
-      - "error_rate"
+      - 'completion_rate'
+      - 'average_duration'
+      - 'error_rate'
     alerts:
-      - condition: "error_rate > 5%"
-        action: "Send notification to team"
-      - condition: "average_duration > 5s"
-        action: "Log performance warning"
-
----
-# Generated for SDD Flow Technical Design Step 5.3
-# Validate component references through AI review to ensure consistency
+      - condition: 'error_rate > 5%'
+        action: 'Send notification to team'
+      - condition: 'average_duration > 5s'
+        action: 'Log performance warning'

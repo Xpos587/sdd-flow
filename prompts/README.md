@@ -1,77 +1,72 @@
-# AI Coding Agent Prompts
+# Domain Flow Prompts
 
-This folder contains prompts for AI coding agents. Each prompt is a separate file designed for specific development tasks.
+AI coding prompts for Software Development Design Flow methodology.
 
-## Quick Start
+## Quick Setup
 
-**Option 1: Direct Prompt Usage**
-- Copy prompt content to your LLM chat
-- Attach template files from `templates/`
-- Attach required documents
-
-**Option 2: Claude Code Commands**
 ```bash
-cd .claude/commands
-ln -s /path/to/sdd-flow/prompts/1.1_initial_hypothesis.md hypothesis.md
-ln -s /path/to/sdd-flow/prompts/2_system_architecture.md architecture.md
+# Set target directory for symbolic links
+export SYMLINKS_TARGET_DIR="~/your-project/.claude/commands"
+
+# Create symbolic links for all available prompts
+ln -s ./prompts/1.1_initial_hypothesis.md $SYMLINKS_TARGET_DIR/hypothesis.md
+ln -s ./prompts/1.3_market_research_report.md $SYMLINKS_TARGET_DIR/market-research.md
+ln -s ./prompts/2_system_architecture.md $SYMLINKS_TARGET_DIR/architecture.md
+ln -s ./prompts/2_system_architecture_review.md $SYMLINKS_TARGET_DIR/architecture-review.md
+ln -s ./prompts/3_feature_roadmap.md $SYMLINKS_TARGET_DIR/roadmap.md
+ln -s ./prompts/5.1_functional_design.md $SYMLINKS_TARGET_DIR/functional-design.md
+ln -s ./prompts/5.3_technical_design.md $SYMLINKS_TARGET_DIR/tech-design.md
+ln -s ./prompts/5.3_technical_design_review.md $SYMLINKS_TARGET_DIR/tech-review.md
+ln -s ./prompts/5.3_technical_design_lint.md $SYMLINKS_TARGET_DIR/tech-lint.md
+ln -s ./prompts/5.4_domain_setup.md $SYMLINKS_TARGET_DIR/domain-setup.md
+ln -s ./prompts/6.1_implementation_plan.md $SYMLINKS_TARGET_DIR/plan.md
+ln -s ./prompts/6.1_implementation_plan_review.md $SYMLINKS_TARGET_DIR/plan-review.md
+ln -s ./prompts/6.2_code_implementation.md $SYMLINKS_TARGET_DIR/do.md
+ln -s ./prompts/6.2_code_review.md $SYMLINKS_TARGET_DIR/code-review.md
+ln -s ./prompts/6.3_testing.md $SYMLINKS_TARGET_DIR/test.md
+ln -s ./prompts/6.3_fix_bug.md $SYMLINKS_TARGET_DIR/fix-bug.md
+ln -s ./prompts/6.3_fix_test.md $SYMLINKS_TARGET_DIR/fix-test.md
 ```
 
-**Option 3: Custom Integration**
-- Adapt prompts for your specific AI tool
-- Modify technology stack in `<TECH_STACK_PREFERENCES>` sections
-- Adjust templates to match your project structure
+## Core Workflow
 
-## Core Prompts
+| Phase     | Prompt                            | Purpose                |
+| --------- | --------------------------------- | ---------------------- |
+| Discovery | `1.1_initial_hypothesis.md`       | Initial idea formation |
+|           | `1.3_market_research_report.md`   | Market analysis        |
+| Design    | `2_system_architecture.md`        | System architecture    |
+|           | `2_system_architecture_review.md` | Architecture review    |
+| Planning  | `3_feature_roadmap.md`            | Feature planning       |
+|           | `5.1_functional_design.md`        | User stories           |
+|           | `5.3_technical_design.md`         | Component architecture |
+| Setup     | `5.4_domain_setup.md`             | Domain isolation       |
+| Planning  | `6.1_implementation_plan.md`      | Task breakdown         |
+| Code      | `6.2_code_implementation.md`      | Code execution         |
+| Test      | `6.3_testing.md`                  | Test execution         |
 
-### 🎯 Discovery & Concept
-- `1.1_initial_hypothesis.md` - Initial idea formation
-- `1.3_market_research_report.md` - Market analysis
+## Quality & Review
 
-### 🏗️ System Design
-- `2_system_architecture.md` - Technology stack and architecture
+| Prompt                              | Purpose              |
+| ----------------------------------- | -------------------- |
+| `5.3_technical_design_review.md`    | Design validation    |
+| `5.3_technical_design_lint.md`      | Consistency checking |
+| `6.1_implementation_plan_review.md` | Plan validation      |
+| `6.2_code_review.md`                | Code quality         |
+| `6.3_fix_bug.md`                    | Bug resolution       |
+| `6.3_fix_test.md`                   | Test fixing          |
 
-### 📋 Planning
-- `3_feature_roadmap.md` - Feature breakdown and prioritization
+## Usage
 
-### 🎨 Design
-- `5.1_functional_design.md` - User stories and workflows
-- `5.3_technical_design.md` - Component architecture (NEW 3-file approach)
-- `5.3_technical_design_review.md` - Design validation
-- `5.3._technical_design_lint.md` - Consistency checking
-- `5.4_domain_setup.md` - Domain isolation setup (NEW)
-
-### 🛠️ Implementation
-- `6.1_implementation_plan.md` - Domain-based task planning
-- `6.2_code_implementation.md` - Code execution
-- `6.2_code_review.md` - Code quality checks
-
-### 🧪 Testing
-- `6.3_testing.md` - Test execution and validation
-- `6.3_fix_bug.md` - Bug resolution
-- `6.3_fix_test.md` - Test fixing
-
-## Technology Customization
-
-Each prompt allows technology stack customization. Key areas:
-- **Frontend**: React/Next.js/TypeScript/etc
-- **Backend**: FastAPI/Django/etc
-- **Database**: PostgreSQL/MongoDB/etc
-- **Tools**: npm/bun, pytest/jest, etc
+1. **Copy prompt content** to your AI tool
+2. **Attach relevant templates** from `templates/`
+3. **Customize technology stack** in prompts
+4. **Follow Domain Flow sequence**: 1.1 → 1.3 → 2 → 3 → 5.1 → 5.3 → 5.4 → 6.1 → 6.2 → 6.3
 
 ## Templates
 
-Corresponding templates in `templates/` folder:
-- `1.1_initial_hypothesis.md`
-- `2_system_architecture.md`
-- `5.1_functional_design.md`
+Corresponding templates in `templates/`:
+
 - `5.3_components.md`, `5.3_components.yaml`, `5.3_transactions.yaml`
 - `5.4_domain_setup.md`
 - `6.1_implementation_checklist.md`
 - `6.2_bug_list.md`, `6.3_changes_list.md`
-
-## Usage Tips
-
-1. **Start with Step 1.1** for any new project
-2. **Customize technology stack** in Step 2 based on your needs
-3. **Use Step 5.4** for domain-based development
-4. **Validate regularly** with lint and review prompts

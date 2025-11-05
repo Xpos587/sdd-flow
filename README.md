@@ -1,82 +1,89 @@
-# SDD Flow - AI Coding Assistant Framework
+# Domain Flow
 
-A structured **Spec-Driven Development (SDD)** methodology and toolkit for building applications with AI coding agents.
+Software Development Design Flow methodology for AI-assisted development.
 
-Based on a proposition **SPECS ARE THE NEW CODE**. The code written on a programming language is just an artefact of the specs compilation. Similar as binaries are artefacts of the code compilation.
+## Overview
 
-## 📋 Overview
+Domain-Driven Development (DDD) methodology with hybrid Waterfall-Agile approach. Build applications with AI coding agents through structured documentation and domain-driven design.
 
-This repository contains a comprehensive framework for managing AI-assisted software development projects. It includes
+## Quick Start
 
-- **Structured Methodology**: A hybrid Waterfall-Agile approach tailored for AI coding assistants
-- **Documentation Templates**: Ready-to-use templates for all project phases
-- **Development Standards**: Guidelines for maintaining code quality and consistency
-- **Prompt Library**: Predefined prompts for common development tasks to use as **custom slash commands** or **subagents**
+```bash
+# Set up prompts
+export SYMLINKS_TARGET_DIR="~/your-project/.claude/commands"
+ln -s ./prompts/* $SYMLINKS_TARGET_DIR/
 
-## General Methodology Workflow
+# Set up templates
+export SYMLINKS_TARGET_DIR="~/your-project/docs"
+ln -s ./templates/* $SYMLINKS_TARGET_DIR/
+
+# Set up agents
+export SYMLINKS_TARGET_DIR="~/your-project/.claude/agents"
+ln -s ./agents/* $SYMLINKS_TARGET_DIR/
+```
+
+## Core Components
+
+- **[workflow.md](workflow.md)** - 7-step methodology
+- **[prompts/](prompts/)** - 17 AI coding prompts
+- **[templates/](templates/)** - 22 document templates
+- **[agents/](agents/)** - Specialized AI agents
+- **[STEERING.md](STEERING.md)** - AI context instructions (like CLAUDE.md)
+
+## 7-Step Workflow
 
 ```mermaid
 graph TD
     S1["Step 1: Discovery & Concept"] -->
     S2["Step 2: High-Level System Design"] -->
-    S3["Step 3: Feature Roadmap & Prioritization"] -->
-    S4["Step 4: Foundation & Setup"]
-    S3 --> S5["Step 5: Design"] -->
+    S3["Step 3: Feature Roadmap"] -->
+    S4["Step 4: Foundation & Setup"] -->
+    S5["Step 5: Design"] -->
     S6["Step 6: Implementation"] -->
-    S7["Step 7: Phase Completion & Integration"]
+    S7["Step 7: Phase Completion"]
 ```
 
-More detailed workflow description in the [sdd-workflow.md](sdd-workflow.md) file.
+## Key Features
 
-## 🚀 Getting Started
+### Domain-Driven Design
 
-### Prerequisites
+- Dynamic domain discovery via Context.toml
+- Domain isolation with clear boundaries
+- GRAPH_TAG system for component tracking
+- 4 DTO pattern for frontend/backend communication
 
-- Basic understanding of software development workflows
-- Access to AI coding assistants (like Claude, GitHub Copilot, etc.)
-- Version control system (Git recommended)
+### AI Agent Integration
 
-### Project Structure
+- Context analysis and architecture discovery
+- Specialized prompts for each development phase
+- Dynamic workspace configuration
+- Template-driven documentation generation
 
+## Usage
+
+1. **Discover domains** dynamically
+2. **Use prompts** for each development phase
+3. **Follow templates** for consistent documentation
+4. **Leverage agents** for architecture analysis
+
+## Project Structure
+
+```tree
+domain-flow/
+├── workflow.md                  # Main methodology
+├── prompts/                     # AI prompts (17 files)
+├── templates/                   # Document templates (22 files)
+├── agents/                      # AI agents
+├── STEERING.md                  # AI context instructions
+└── docs/domains/                # Domain documentation
 ```
-AICoding/
-├── sdd-workflow.md  # The main methodology doc with workflow and references to all other files
-├── common/                 # Shared helper prompts and standards
-├── prompts/                # AI prompt templates
-│   ├── 1.1_initial_hypothesis.md
-│   ├── 2_system_architecture.md
-│   ├── 5.1_functional_design.md
-│   └── ...
-├── templates/              # Document templates
-│   ├── 1.1_initial_hypothesis.md
-│   ├── 2_system_architecture.md
-│   └── ...
-├── general-preferences.md  # templates for AI assistant steering files (CLAUDE.md, GEMINI.md, etc)
 
-```
+## Getting Started
 
-## 🛠️ Usage
+1. Clone the repository
+2. Set up symbolic links using commands above
+3. Follow Step 1.1 for new projects
 
-After cloning this repository to your local machine, you can start a new project by following the steps:
+## License
 
-1. **Start a New Project** in a separate folder
-
-2. **Copy or create symlinks for templates** - see the [templates/README.md](templates/README.md) for details
-
-3. **Create custom commands or subagents via symlinks for prompts** - see the [prompts/README.md](prompts/README.md) for details
-
-4. **Copy or create symlinks for common files** - see the [common/README.md](common/README.md) for details
-
-5. **Follow the flow** - see the complete workflow in [sdd-workflow.md](sdd-workflow.md)
-
-You can always copy-paste the content of the prompts and templates to your project or LLM chats (ChatGPT, Gemini, Claude, etc) and adjust them to your needs.
-
-## 🤝 Contributing
-
-Contributions are welcome! Please try it out!
-
-Reach me in Telegram directly [@ataden](https://t.me/ataden) for any questions or feedback.
-
-## 📄 License
-
-This project is licensed under the MIT License
+[MIT License](./LICENSE)

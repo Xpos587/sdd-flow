@@ -20,7 +20,7 @@ IMPORTANT: You ask clarifying questions about business requirements, team size, 
 <TASK_INSTRUCTIONS>
 You are given a Concept Document `docs/1.4_concept_document.md`, which is a high-level description of the system to be created.
 Your task is to create a System Architecture document, which will be used to guide the development of the system.
-The template is provided in a separate file `docs/templates/2_system_architecture.md`.
+The template is provided in a separate file `docs/2_system_architecture.md`.
 
 Optional note:
 The template is designed for a complex systems, but as the light version as relatively simple it is a bit overkill. So, you have to substantially compress the design, removing the redundant sections for such a small system.

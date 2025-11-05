@@ -27,6 +27,28 @@
     ]
   },
   "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bunx cli-lsp-client start"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|MultiEdit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bunx cli-lsp-client claude-code-hook"
+          }
+        ]
+      }
+    ],
     "Notification": [
       {
         "matcher": "",

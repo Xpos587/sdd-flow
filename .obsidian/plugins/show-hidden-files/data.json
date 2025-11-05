@@ -5,9 +5,5 @@
   "openChangelogOnUpdate": true,
   "showConfigurationFolder": true,
   "showHiddenFiles": true,
-  "showingRules": [
-    "+/",
-    "-/\\.git(?:\\/|$)/u",
-    "-/\\.venv(?:\\/|$)/u"
-  ]
+  "showingRules": ["+/", "-/\\.git(?:\\/|$)/u", "-/\\.venv(?:\\/|$)/u"]
 }

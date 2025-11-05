@@ -10,7 +10,7 @@ Your task is to create the feature roadmap based on the above documents:
 - Do not create a detailed plan. I just need a high-level roadmap - without detailed tasks, acceptance criterion, etc.
 - Do not put time estimates.
 
-Use the template `docs/templates/3_feature_roadmap.md` as a reference.
+Use the template `docs/3_feature_roadmap.md` as a reference.
 
 </TASK_INSTRUCTIONS>
 
