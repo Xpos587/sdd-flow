@@ -10,13 +10,15 @@ export SYMLINKS_TARGET_DIR="~/your-project/.claude/agents"
 
 # Create symbolic links for available agents
 ln -s ./agents/context-analyzer.md $SYMLINKS_TARGET_DIR/context-analyzer.md
+ln -s ./agents/codebase-investigator.md $SYMLINKS_TARGET_DIR/codebase-investigator.md
 ```
 
 ## Available Agents
 
-| Agent              | Purpose                               |
-| ------------------ | ------------------------------------- |
-| `context-analyzer` | Domain-Driven Design context analysis |
+| Agent                 | Purpose                                           |
+| --------------------- | ------------------------------------------------- |
+| `context-analyzer`    | Domain-Driven Design context analysis (DDD)       |
+| `codebase-investigator` | Deep investigation for any unstructured codebase |
 
 ## Usage
 

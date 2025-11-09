@@ -1,13 +1,5 @@
 {
   "mcpServers": {
-    "morphllm-fast-apply": {
-      "type": "stdio",
-      "command": "bunx",
-      "args": ["@morph-llm/morph-fast-apply"],
-      "env": {
-        "MORPH_API_KEY": ""
-      }
-    },
     "sequential-thinking": {
       "type": "stdio",
       "command": "bunx",

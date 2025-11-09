@@ -18,7 +18,9 @@
   "permissions": {
     "defaultMode": "bypassPermissions",
     "deny": [
-      "Edit",
+      "Glob",
+      "Grep",
+      "LS",
       "MultiEdit",
       "WebFetch",
       "WebSearch",
